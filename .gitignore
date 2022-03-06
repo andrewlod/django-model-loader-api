@@ -1,1 +1,6 @@
 .env
+.venv
+*.txt
+*.jpg
+*.png
+*.pb

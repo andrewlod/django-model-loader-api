@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 django = "*"
 python-dotenv = "*"
+tensorflow = "==2.2"
+pillow = "*"
+tensorflow-hub = "*"
+mysqlclient = "*"
 
 [dev-packages]
 
