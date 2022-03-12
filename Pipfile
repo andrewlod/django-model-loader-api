@@ -10,6 +10,9 @@ tensorflow = "==2.2"
 pillow = "*"
 tensorflow-hub = "*"
 mysqlclient = "*"
+boto3 = "*"
+django-storages = "*"
+uuid = "*"
 
 [dev-packages]
 
