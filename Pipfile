@@ -13,6 +13,7 @@ mysqlclient = "*"
 boto3 = "*"
 django-storages = "*"
 uuid = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

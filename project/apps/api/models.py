@@ -1,5 +1,7 @@
 from operator import mod
 from django.db import models
+from uuid import uuid4
+from .util import StorageHandler
 
 class ModelOutputType(models.Model):
     type = models.CharField(max_length=16)
@@ -23,7 +25,7 @@ class Storage(models.Model):
 class TFModel(models.Model):
     id = models.CharField(max_length=32, primary_key=True)
     model_storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='tf_model_storage')
-    label_map_storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='tf_model_label_map_storage')
+    label_map_storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='tf_model_label_map_storage', null=True)
     output_type = models.ForeignKey(ModelOutputType, on_delete=models.CASCADE)
     
     class Meta:
