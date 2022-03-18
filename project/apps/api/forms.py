@@ -4,6 +4,10 @@ from .models import TFModel
 from .constants import STORAGE_TYPES, MODEL_OUTPUT_TYPES
 
 
+class UploadImageForm(forms.Form):
+    image = forms.FileField()
+
+
 class ImageModelForm(forms.ModelForm):
     model = forms.FileField()
     model_output_type = forms.CharField(max_length=16, widget=forms.Select(choices=([x,x] for x in MODEL_OUTPUT_TYPES.keys())))
