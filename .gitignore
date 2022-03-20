@@ -5,4 +5,5 @@
 *.png
 *.pb
 *.zip
+!project/tests/**/*
 temp/*
