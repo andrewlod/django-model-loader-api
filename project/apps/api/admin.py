@@ -1,4 +1,3 @@
-from dataclasses import fields
 from django.contrib import admin, messages
 from .models import ModelOutputType, StorageType, Storage, TFModel
 from .forms import ImageModelForm
@@ -16,6 +15,7 @@ class ImageModelFormAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.method == 'POST':
+
             form = ImageModelForm(request.POST, request.FILES)
             if form.is_valid():
                 storage_type = form.data["model_storage_type"]
@@ -31,8 +31,7 @@ class ImageModelFormAdmin(admin.ModelAdmin):
             
                 model_id = str(uuid4())
 
-                model_storage = Storage(storage_id=model_id, storage_type=StorageType.objects.get(type=storage_type))
-                model_storage.save()
+                model_storage = Storage.objects.create(storage_id=model_id, storage_type=StorageType.objects.get(type=storage_type))
 
                 obj.id = model_name
                 obj.model_storage = model_storage
@@ -42,16 +41,15 @@ class ImageModelFormAdmin(admin.ModelAdmin):
                 if output_type == "String":
                     label_map = form.files["model_label_map"]
                     label_map_id = str(uuid4())
-                    label_map_storage = Storage(storage_id=label_map_id, storage_type=StorageType.objects.get(type=storage_type))
-                    label_map_storage.save()
+                    label_map_storage = Storage.objects.create(storage_id=label_map_id, storage_type=StorageType.objects.get(type=storage_type))
 
                     obj.label_map_storage = label_map_storage
 
                     StorageHandler.store_file(label_map, storage_type, file_id=label_map_id)
 
                 StorageHandler.store_file(model, storage_type, file_id=model_id)
-
-                return super().save_model(request, obj, form, change)
+                
+                TFModel.objects.create(id=obj.id, model_storage=obj.model_storage, label_map_storage=obj.label_map_storage, output_type=obj.output_type)
         else:
             return ImageModelForm()
 
