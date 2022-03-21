@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'project.apps.misc',
-    'project.apps.api'
+    'project.apps.api',
+    'rest_framework'
 ]
 
 SITE_ID = 1
